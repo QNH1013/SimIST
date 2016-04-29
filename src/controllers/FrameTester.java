@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import models.Customer;
 import views.*;
+import static com.sun.javafx.fxml.expression.Expression.add;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -33,6 +35,8 @@ public class FrameTester {
     private JButton cybertorium;
     private Customer student;
     private GameRoom room;
+    Schedule classSchedule;
+    private JButton schedule;
 
     //private ClockPanel clock;
 
@@ -63,6 +67,7 @@ public class FrameTester {
         menuPanel = new JButton("MenuPanel");
         floor1 = new JButton("Floor 1");
         cybertorium = new JButton("Cybertorium");
+        schedule = new JButton("Class Schedule");
 
         frame.add(auBon);
 //        frame.add(floor);
@@ -72,6 +77,7 @@ public class FrameTester {
 //        frame.add(menuPanel);
         frame.add(floor1);
         frame.add(cybertorium);
+        frame.add(schedule);
 
         auBon.addActionListener(new PanelSwitcher());
         floor.addActionListener(new PanelSwitcher());
@@ -81,6 +87,7 @@ public class FrameTester {
         menuPanel.addActionListener(new PanelSwitcher());
         floor1.addActionListener(new PanelSwitcher());
         cybertorium.addActionListener(new PanelSwitcher());
+        schedule.addActionListener(new PanelSwitcher());
     }
 
     private void refreshPane() {
@@ -92,6 +99,7 @@ public class FrameTester {
         frame.remove(auBon);
         frame.remove(floor);
         frame.remove(meetingRoom);
+        frame.remove(schedule);
     }
 
     private class PanelSwitcher implements ActionListener {
@@ -105,6 +113,17 @@ public class FrameTester {
                     room = new AuBonPainPanel(student);
                     GameRoomController c = new GameRoomController(student, room);
                 } catch (Exception ex) {
+                    System.err.println(ex);
+                }
+            }
+            if(o == schedule)
+            {
+                removeButtons();
+                try{
+                classSchedule = new Schedule();
+                add(classSchedule, BorderLayout.CENTER);
+                }catch(Exception ex)
+                {
                     System.err.println(ex);
                 }
             }
